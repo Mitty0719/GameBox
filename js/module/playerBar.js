@@ -25,7 +25,6 @@ export class PlayerBar{
     }
 
     moveStart(e){
-        console.log('hi');
         if(e.keyCode === 37 && !this.isKeyDown){
             this.keyInterval = setInterval(()=>{
                 if(this.x <= 0){

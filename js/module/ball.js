@@ -11,12 +11,18 @@ export class Ball{
         this.y = stageHeight - diameter - 20; // 20 공백
     }
 
-    draw(ctx, stageWidth, stageHeight, playerBar){
+    draw(ctx, stageWidth, stageHeight, playerBar, blockGroup){
         this.x += this.vx;
         this.y += this.vy;
 
         this.bounceWindow(stageWidth, stageHeight);
-        this.bouncePlayerBar(playerBar);
+        this.bounceElem(playerBar);
+        
+        blockGroup.rows.forEach( row => {
+            row.blocks.forEach( block => {
+                this.bounceElem(block, blockGroup);
+            });
+        });
 
         ctx.fillStyle = '#ff0000';
         ctx.beginPath();
@@ -38,11 +44,11 @@ export class Ball{
         }
     }
 
-    bouncePlayerBar(playerBar){
-        const minX = playerBar.x - this.radius;
-        const maxX = playerBar.maxX + this.radius;
-        const minY = playerBar.y - this.radius;
-        const maxY = playerBar.maxY + this.radius;
+    bounceElem(elem, blockGroup){
+        const minX = elem.x - this.radius;
+        const maxX = elem.maxX + this.radius;
+        const minY = elem.y - this.radius;
+        const maxY = elem.maxY + this.radius;
 
         if(this.x > minX && this.x < maxX && this.y > minY && this.y < maxY){
             const x1 = Math.abs(minX - this.x);
@@ -57,6 +63,11 @@ export class Ball{
                 this.vx *= -1;
             }else if(min === min2){
                 this.vy *= -1;
+            }
+
+            // block이면 삭제
+            if(elem.__proto__.constructor.name === 'Block'){
+                elem.remove(blockGroup);
             }
         }
     }
