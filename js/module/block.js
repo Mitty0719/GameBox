@@ -25,8 +25,7 @@ export class Block{
     }
 
     remove(blockGroup){
-        // 삭제 안됨 -> 고치기
-        let removedBlocks = blockGroup.rows.filter(row => row.rowIndex === this.rowIndex).filter(block => block !== this);
-        blockGroup.rows[0].blocks = removedBlocks;
+        let removedBlocks = blockGroup.rows.filter(row => row.rowIndex === this.rowIndex)[0].blocks.filter(block => block.index !== this.index);
+        blockGroup.rows[this.rowIndex].blocks = removedBlocks;
     }
 }
