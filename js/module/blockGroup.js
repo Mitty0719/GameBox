@@ -18,6 +18,14 @@ export class BlockGroup{
         }
     }
 
+    resize(stageWidth, stageHeight){
+        this.stageWidth = stageWidth;
+        this.stageHeight = stageHeight;
+        for(let i = 0; i < this.rows.length; i++){
+            this.rows[i].resize(stageWidth, stageHeight);
+        }
+    }
+
     // addRow(e){
     //     if(e.keyCode === 32){
     //         this.rows.forEach( row => {

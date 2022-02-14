@@ -1,9 +1,9 @@
 export class PlayerBar{
-    constructor(stageWidth, stageHeight, width, height){
-        this.x = (stageWidth / 2) - (width / 2)
-        this.y = stageHeight - height - 20; // 20은 여분값
-        this.width = width;
-        this.height = height;
+    constructor(stageWidth, stageHeight){
+        this.width = stageWidth / 4;
+        this.height = 20;
+        this.x = (stageWidth / 2) - (this.width / 2)
+        this.y = stageHeight - this.height - 20; // 20은 여분값
         this.speed = 5;
 
         this.maxX = this.x + this.width;
@@ -48,5 +48,17 @@ export class PlayerBar{
     moveStop(e){
         clearInterval(this.keyInterval);
         this.isKeyDown = false;
+    }
+    resize(stageWidth, stageHeight){
+        this.width = stageWidth / 4;
+        this.x = (stageWidth / 2) - (this.width / 2)
+        this.y = stageHeight - this.height - 20; // 20은 여분값
+        this.speed = 5;
+
+        this.maxX = this.x + this.width;
+        this.maxY = this.y + this.height;
+
+        this.stageWidth = stageWidth;
+        this.stageHeight = stageHeight;
     }
 }

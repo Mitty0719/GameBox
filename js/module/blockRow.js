@@ -19,4 +19,11 @@ export class blockRow{
             this.blocks[i].draw(ctx);
         }
     }
+    resize(stageWidth, stageHeight){
+        this.stageWidth = stageWidth;
+        this.stageHeight = stageHeight;
+        for(let i = 0; i < this.blocks.length; i++){
+            this.blocks[i].resize(stageWidth, stageHeight);
+        }
+    }
 }

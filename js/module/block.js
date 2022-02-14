@@ -5,12 +5,16 @@ export class Block{
         this.index = index;
         this.width = (stageWidth / blockLength) - (this.gap * 2);
         this.height = 40;
-        this.resize(stageWidth, blockLength, index);
+        this.blockLength = blockLength;
+        this.resize(stageWidth);
     }
 
-    resize(stageWidth, blockLength, index){
-        this.x = (stageWidth / blockLength * index) + this.gap;
+    resize(stageWidth){
+        this.x = (stageWidth / this.blockLength * this.index) + this.gap;
         this.y = (this.gap * (this.rowIndex + 1)) + (this.height * this.rowIndex);
+
+        this.width = (stageWidth / this.blockLength) - (this.gap * 2);
+        this.height = 40;
 
         this.maxX = this.x + this.width;
         this.maxY = this.y + this.height;

@@ -18,11 +18,11 @@ export class Game1{
         this.adjustLevel();
         this.createElem();
 
-        window.addEventListener('resize', this.resize.bind(this), false);
 
         requestAnimationFrame(this.animate.bind(this));
-
         setInterval(this.checkClear.bind(this), 1000);
+
+        window.addEventListener('resize', this.resize.bind(this), false);
     }
 
     resize(){
@@ -32,6 +32,10 @@ export class Game1{
         this.canvas.width = this.stageWidth * 2;
         this.canvas.height = this.stageHeight * 2;
         this.ctx.scale(2, 2);
+        if(this.playerBar !== undefined){
+            this.playerBar.resize(this.stageWidth, this.stageHeight);
+            this.blockGroup.resize(this.stageWidth, this.stageHeight);
+        }
     }
 
     animate(){
@@ -41,10 +45,10 @@ export class Game1{
         this.blockGroup.draw(this.ctx);
 
         if(this.isAdjust){
-            let text = `Level${this.levelNum} Clear!`;
+            let text = `Level ${this.levelNum} Clear!`;
 
             if(this.isStart){
-                text = `Level${this.levelNum+1} Start!`;
+                text = `Level ${this.levelNum+1} Start!`;
             }
             
             this.showText(text);
@@ -55,9 +59,9 @@ export class Game1{
     }
 
     createElem(){
-        let overLevel = this.levelNum > this.levelMax ? 0.2 * this.levelNum : 1;
-        this.ball = new Ball(this.stageWidth, this.stageHeight, 20, 10 * this.level.ballSpeedRatio * overLevel);
-        this.playerBar = new PlayerBar(this.stageWidth, this.stageHeight, 300, 20);
+        let overLevelBallSpeed = this.levelNum > this.levelMax ? 0.2 * this.levelNum : 1;
+        this.ball = new Ball(this.stageWidth, this.stageHeight, 20, 10 * this.level.ballSpeedRatio * overLevelBallSpeed);
+        this.playerBar = new PlayerBar(this.stageWidth, this.stageHeight);
         this.blockGroup = new BlockGroup(this.stageWidth, this.stageHeight, this.level);
     }
 
@@ -77,6 +81,7 @@ export class Game1{
         this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
         this.ctx.font = '48px sesif';
         this.ctx.fillStyle = '#000000';
+        this.ctx.textAlign = 'center';
         this.ctx.fillText(text, this.stageWidth/2, this.stageHeight/2);
     }
 
