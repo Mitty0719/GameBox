@@ -39,7 +39,7 @@ export class Ball{
         if(this.x <= minX || this.x >= maxX){
             this.vx *= -1;
         }
-        if(this.y <= minY || this.y >= maxY){
+        if(this.y <= minY){
             this.vy *= -1;
         }
     }

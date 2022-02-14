@@ -39,6 +39,10 @@ export class Game1{
     }
 
     animate(){
+        if(this.ball.y > this.stageHeight){
+            this.showText('GAME OVER');
+            return;
+        }
         this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
         this.ball.draw(this.ctx, this.stageWidth, this.stageHeight, this.playerBar, this.blockGroup);
         this.playerBar.draw(this.ctx);
