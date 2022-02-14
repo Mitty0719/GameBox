@@ -17,9 +17,10 @@ export class Block{
     }
 
     draw(ctx){
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#555555';
         ctx.beginPath();
-        ctx.fillText(`${this.rowIndex}-${this.index}`, this.x, this.y);
+        // ctx.font = '16px serif'
+        // ctx.fillText(`${this.rowIndex}-${this.index}`, this.x, this.y);
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.fill();
     }

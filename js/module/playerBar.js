@@ -18,7 +18,7 @@ export class PlayerBar{
 
     draw(ctx){
 
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#000000';
         ctx.beginPath();
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.fill();
