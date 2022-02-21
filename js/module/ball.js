@@ -24,7 +24,7 @@ export class Ball{
             });
         });
 
-        ctx.fillStyle = '#ff0000';
+        ctx.fillStyle = '#000000';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         ctx.fill();
@@ -45,30 +45,33 @@ export class Ball{
     }
 
     bounceElem(elem, blockGroup){
-        const minX = elem.x - this.radius;
-        const maxX = elem.maxX + this.radius;
-        const minY = elem.y - this.radius;
-        const maxY = elem.maxY + this.radius;
+      if(elem.isBroken){
+        return;
+      }
+      const minX = elem.x - this.radius;
+      const maxX = elem.maxX + this.radius;
+      const minY = elem.y - this.radius;
+      const maxY = elem.maxY + this.radius;
 
-        if(this.x > minX && this.x < maxX && this.y > minY && this.y < maxY){
-            const x1 = Math.abs(minX - this.x);
-            const x2 = Math.abs(this.x - maxX);
-            const y1 = Math.abs(minY - this.y);
-            const y2 = Math.abs(this.y - maxY);
-            const min1 = Math.min(x1, x2);
-            const min2 = Math.min(y1, y2);
-            const min = Math.min(min1, min2);
+      if(this.x > minX && this.x < maxX && this.y > minY && this.y < maxY){
+          const x1 = Math.abs(minX - this.x);
+          const x2 = Math.abs(this.x - maxX);
+          const y1 = Math.abs(minY - this.y);
+          const y2 = Math.abs(this.y - maxY);
+          const min1 = Math.min(x1, x2);
+          const min2 = Math.min(y1, y2);
+          const min = Math.min(min1, min2);
 
-            if(min === min1){
-                this.vx *= -1;
-            }else if(min === min2){
-                this.vy *= -1;
-            }
+          if(min === min1){
+              this.vx *= -1;
+          }else if(min === min2){
+              this.vy *= -1;
+          }
 
-            // block이면 삭제
-            if(elem.__proto__.constructor.name === 'Block'){
-                elem.remove(blockGroup);
-            }
-        }
+          // block이면 삭제
+          if(elem.__proto__.constructor.name === 'Block'){
+              elem.remove();
+          }
+      }
     }
 }

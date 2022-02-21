@@ -1,11 +1,12 @@
 export class Block{
-    constructor(stageWidth, stageHeight, rowIndex, index, blockLength){
+    constructor(stageWidth, rowIndex, index, blockLength, isBroken){
         this.gap = 10
         this.rowIndex = rowIndex;
         this.index = index;
         this.width = (stageWidth / blockLength) - (this.gap * 2);
-        this.height = 40;
+        this.height = 20;
         this.blockLength = blockLength;
+        this.isBroken = isBroken;
         this.resize(stageWidth);
     }
 
@@ -14,23 +15,24 @@ export class Block{
         this.y = (this.gap * (this.rowIndex + 1)) + (this.height * this.rowIndex);
 
         this.width = (stageWidth / this.blockLength) - (this.gap * 2);
-        this.height = 40;
+        this.height = 20;
 
         this.maxX = this.x + this.width;
         this.maxY = this.y + this.height;
     }
 
     draw(ctx){
-        ctx.fillStyle = '#555555';
+      if(!this.isBroken){
+        ctx.fillStyle = '#000000';
         ctx.beginPath();
         // ctx.font = '16px serif'
         // ctx.fillText(`${this.rowIndex}-${this.index}`, this.x, this.y);
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.fill();
+      }
     }
 
-    remove(blockGroup){
-        let removedBlocks = blockGroup.rows.filter(row => row.rowIndex === this.rowIndex)[0].blocks.filter(block => block.index !== this.index);
-        blockGroup.rows[this.rowIndex].blocks = removedBlocks;
+    remove(){
+      this.isBroken = true;
     }
 }

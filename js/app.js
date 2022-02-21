@@ -1,27 +1,39 @@
 import { Game1 } from "./game-1.js";
 
 class App{
-    constructor(){
-        this.gameIndex = 0; // 0 : unSelect
+  constructor(){
+    this.gameIndex = 0;
+    this.gameItems = document.querySelectorAll('.game-list .game-item');
 
-        this.init();
+    window.addEventListener('keydown', this.keydown.bind(this));
+  }
+
+  startGame(){
+    if(this.gameIndex === 0){
+      this.game = new Game1();
     }
+  }
 
-    init(){
-        const gameList = document.querySelector('.game-list');
-        gameList.addEventListener('click', this.selectGame.bind(this));
+  resize(){
+  }
+
+  keydown(e){
+    if(e.keyCode === 38){ // 위쪽 방향키
+      if(this.gameIndex > 0){
+        this.gameItems[this.gameIndex--].classList.remove('selected');
+        this.gameItems[this.gameIndex].classList.add('selected');
+      }
+    } else if (e.keyCode === 40){ // 아래쪽 방향키
+      if(this.gameIndex < this.gameItems.length-1){
+        this.gameItems[this.gameIndex++].classList.remove('selected');
+        this.gameItems[this.gameIndex].classList.add('selected');
+      }
+    } else if (e.keyCode === 32){ // 스페이스바
+      this.startGame();
     }
-
-
-    selectGame(e){
-        this.gameIndex =  parseInt(e.target.getAttribute('data-game-index'));
-
-        if(this.gameIndex === 1){
-            this.game = new Game1();
-        }
-    }
+  }
 }
 
 window.onload = () => {
-    new App();
+  new App();
 }

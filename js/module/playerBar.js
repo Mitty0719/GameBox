@@ -3,8 +3,8 @@ export class PlayerBar{
         this.width = stageWidth / 4;
         this.height = 20;
         this.x = (stageWidth / 2) - (this.width / 2)
-        this.y = stageHeight - this.height - 20; // 20은 여분값
-        this.speed = 5;
+        this.y = stageHeight - this.height - 10; // 10은 여분값
+        this.speed = 5; 
 
         this.maxX = this.x + this.width;
         this.maxY = this.y + this.height;

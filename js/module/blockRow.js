@@ -9,8 +9,11 @@ export class blockRow{
         this.blocks = [];
         for(let i = 0; i < blocks.length; i++){
             if(blocks[i] === 1){
-                const block = new Block(this.stageWidth, this.stageHeight, this.rowIndex, i, blocks.length, this.blocks);
-                this.blocks[i] = block;
+              const block = new Block(this.stageWidth, this.rowIndex, i, blocks.length, false);
+              this.blocks[i] = block;
+            }else{
+              const block = new Block(this.stageWidth, this.rowIndex, i, blocks.length, true);
+              this.blocks[i] = block;
             }
         }
     }
