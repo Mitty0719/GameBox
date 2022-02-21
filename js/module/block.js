@@ -1,6 +1,6 @@
 export class Block{
     constructor(stageWidth, rowIndex, index, blockLength, isBroken){
-        this.gap = 10
+        this.gap = 3;
         this.rowIndex = rowIndex;
         this.index = index;
         this.width = (stageWidth / blockLength) - (this.gap * 2);

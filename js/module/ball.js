@@ -1,11 +1,11 @@
 export class Ball{
-    constructor(stageWidth, stageHeight, radius, speed){
+    constructor(stageWidth, stageHeight, speed){
         // x, y 방향 속도
         this.vx = speed;
         this.vy = speed;
-        this.radius = radius;
+        this.radius = 16;
 
-        const diameter = radius * 2;
+        const diameter = this.radius * 2;
 
         this.x = stageWidth / 2;
         this.y = stageHeight - diameter - 20; // 20 공백
@@ -26,7 +26,8 @@ export class Ball{
 
         ctx.fillStyle = '#000000';
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        // ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        ctx.rect(this.x, this.y, this.radius, this.radius);
         ctx.fill();
     }
 
@@ -48,10 +49,10 @@ export class Ball{
       if(elem.isBroken){
         return;
       }
-      const minX = elem.x - this.radius;
-      const maxX = elem.maxX + this.radius;
+      const minX = elem.x - this.radius
+      const maxX = elem.maxX;
       const minY = elem.y - this.radius;
-      const maxY = elem.maxY + this.radius;
+      const maxY = elem.maxY;
 
       if(this.x > minX && this.x < maxX && this.y > minY && this.y < maxY){
           const x1 = Math.abs(minX - this.x);

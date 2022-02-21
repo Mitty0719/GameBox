@@ -64,7 +64,7 @@ export class Game1{
 
   createElem(){
     let overLevelBallSpeed = this.levelNum > this.levelMax ? 0.2 * this.levelNum : 1;
-    this.ball = new Ball(this.stageWidth, this.stageHeight, 15, 6 * this.level.ballSpeedRatio * overLevelBallSpeed);
+    this.ball = new Ball(this.stageWidth, this.stageHeight, 6 * this.level.ballSpeedRatio * overLevelBallSpeed);
     this.playerBar = new PlayerBar(this.stageWidth, this.stageHeight);
     this.blockGroup = new BlockGroup(this.stageWidth, this.stageHeight, this.level);
   }
@@ -81,9 +81,9 @@ export class Game1{
 
   showText(text){
     console.log(text);
-    this.ctx.fillStyle = '#ffffff';
+    this.ctx.fillStyle = '#639a3d';
     this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
-    this.ctx.font = '48px sesif';
+    this.ctx.font = '24px "Press Start 2P"';
     this.ctx.fillStyle = '#000000';
     this.ctx.textAlign = 'center';
     this.ctx.fillText(text, this.stageWidth/2, this.stageHeight/2);
