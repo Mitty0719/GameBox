@@ -1,30 +1,28 @@
 export class PlayerBar{
     constructor(stageWidth, stageHeight){
-        this.width = stageWidth / 4;
-        this.height = 20;
-        this.x = (stageWidth / 2) - (this.width / 2)
-        this.y = stageHeight - this.height - 10; // 10은 여분값
-        this.speed = 5; 
+      this.width = stageWidth / 4; // 가로 크기가 안바뀌는 이슈
+      this.height = 15;
+      this.x = (stageWidth / 2) - (this.width / 2)
+      this.y = stageHeight - this.height - 10; // 10은 여분값
+      this.speed = 5; 
 
-        this.maxX = this.x + this.width;
-        this.maxY = this.y + this.height;
+      this.maxX = this.x + this.width;
+      this.maxY = this.y + this.height;
 
-        this.stageWidth = stageWidth;
-        this.stageHeight = stageHeight;
-
-        window.addEventListener('keydown', this.moveStart.bind(this));
-        window.addEventListener('keyup', this.moveStop.bind(this));
+      window.addEventListener('keydown', (e)=>{
+        this.moveStart(e, stageWidth);
+      });
+      window.addEventListener('keyup', this.moveStop.bind(this));
     }
 
     draw(ctx){
-
-        ctx.fillStyle = '#000000';
-        ctx.beginPath();
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.fill();
+      ctx.fillStyle = '#000000';
+      ctx.beginPath();
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.fill();
     }
 
-    moveStart(e){
+    moveStart(e, stageWidth){
         if(e.keyCode === 37 && !this.isKeyDown){
             this.keyInterval = setInterval(()=>{
                 if(this.x <= 0){
@@ -36,7 +34,7 @@ export class PlayerBar{
             this.isKeyDown = true;
         }else if(e.keyCode === 39 && !this.isKeyDown){
             this.keyInterval = setInterval(()=>{
-                if(this.maxX >= this.stageWidth){
+                if(this.maxX >= stageWidth){
                     return;
                 }
                 this.x += this.speed;
@@ -57,8 +55,5 @@ export class PlayerBar{
 
         this.maxX = this.x + this.width;
         this.maxY = this.y + this.height;
-
-        this.stageWidth = stageWidth;
-        this.stageHeight = stageHeight;
     }
 }
