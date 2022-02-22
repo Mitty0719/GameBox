@@ -19,8 +19,7 @@ export class Game1{
   }
 
   resize(stageWidth, stageHeight){
-    if(this.playerBar){
-      this.playerBar.resize(stageWidth, stageHeight);
+    if(this.isStart){
       this.blockGroup.resize(stageWidth, stageHeight);
     }
   }
