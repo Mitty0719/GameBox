@@ -21,6 +21,5 @@ export class Dot{
 
     ctx.fillStyle='#000000';
     ctx.fillRect(this.x, this.y, this.width, this.height);
-    console.log(this.x, this.y, this.width, this.height);
   }
 }

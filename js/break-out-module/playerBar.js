@@ -6,6 +6,18 @@ export class PlayerBar{
         this.moveStart(e, stageWidth);
       });
       window.addEventListener('keyup', this.moveStop.bind(this));
+      this.keyInfo = {
+        37: { // 좌
+          isDown: false,
+          keyInterval: null,
+          direction: this.speed * (-1),
+        },
+        39: { // 우
+          isDown: false,
+          keyInterval: null,
+          direction: this.speed,
+        }
+      }
     }
 
     draw(ctx){
@@ -16,29 +28,37 @@ export class PlayerBar{
     }
 
     moveStart(e, stageWidth){
-        if(e.keyCode === 37 && !this.isKeyDown){
-            this.keyInterval = setInterval(()=>{
-                if(this.x <= 0){
-                    return;
-                }
-                this.x -= this.speed;
-                this.maxX = this.x + this.width;
-            }, 10)
-            this.isKeyDown = true;
-        }else if(e.keyCode === 39 && !this.isKeyDown){
-            this.keyInterval = setInterval(()=>{
-                if(this.maxX >= stageWidth){
-                    return;
-                }
-                this.x += this.speed;
-                this.maxX = this.x + this.width;
-            }, 10)
-            this.isKeyDown = true;
+      const code = e.keyCode;
+      const key = this.keyInfo[code];
+
+      if(key){
+        if(!key.isDown){
+          key.keyInterval = setInterval(()=>{
+            if(this.x < 0){
+              this.x = 0;
+              this.maxX = this.width;
+              return;
+            }
+            if(this.maxX > stageWidth){
+              this.x = stageWidth - this.width;
+              this.maxX = stageWidth;
+              return;
+            }
+            this.x += key.direction;
+            this.maxX = this.x + this.width;
+          }, 10);
         }
+        key.isDown = true;
+
+      }
     }
     moveStop(e){
-        clearInterval(this.keyInterval);
-        this.isKeyDown = false;
+      const code = e.keyCode;
+      const key = this.keyInfo[code];
+      if(key){
+        clearInterval(key.keyInterval);
+        key.isDown = false;
+      }
     }
     resize(stageWidth, stageHeight){
         this.width = stageWidth / 3;

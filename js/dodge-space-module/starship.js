@@ -10,21 +10,25 @@ export class Startship{
     this.y = (stageHeight / 2) + (this.radius / 2);
     this.speed = 1;
     this.keyInfo = {
-      left: {
+      37: { // 좌
         isDown: false,
         keyInterval: null,
+        direction: this.speed * (-1),
       },
-      right: {
+      38: { // 상
         isDown: false,
         keyInterval: null,
+        direction: this.speed * (-1),
       },
-      up: {
+      39: { // 우
         isDown: false,
         keyInterval: null,
+        direction:  this.speed,
       },
-      down: {
+      40: { // 하
         isDown: false,
         keyInterval: null,
+        direction: this.speed,
       },
     }
 
@@ -48,42 +52,29 @@ export class Startship{
     ctx.restore();
   }
   moveStart(e){
-    if(e.keyCode === 37 && !this.keyInfo.left.isDown){ // 좌측 방향키
-      this.keyInfo.left.keyInterval = setInterval(()=>{
-        this.x -= this.speed;
-      }, 10);
-      this.keyInfo.left.isDown = true;
-    }else if(e.keyCode === 38 && !this.keyInfo.up.isDown){ // 상측 방향키
-      this.keyInfo.up.keyInterval = setInterval(()=>{
-        this.y -= this.speed;
-      }, 10);
-      this.keyInfo.up.isDown = true;
-    }else if(e.keyCode === 39 && !this.keyInfo.right.isDown){ // 우측 방향키
-      this.keyInfo.right.keyInterval = setInterval(()=>{
-        this.x += this.speed;
-      }, 10);
-      this.keyInfo.right.isDown = true;
-    }else if(e.keyCode === 40 && !this.keyInfo.down.isDown){ // 하측 방향키
-      this.keyInfo.down.keyInterval = setInterval(()=>{
-        this.y += this.speed;
-      }, 10);
-      this.keyInfo.down.isDown = true;
+    const code = e.keyCode;
+    const key = this.keyInfo[code];
+    if(key){
+      if(!key.isDown){
+        if(code === 37 || code === 39){
+          key.keyInterval = setInterval(()=>{
+            this.x += key.direction;
+          }, 10);
+        } else if(code === 38 || code === 40){
+          key.keyInterval = setInterval(()=>{
+            this.y += key.direction;
+          }, 10);
+        }
+      }
+      key.isDown = true;
     }
   }
   moveEnd(e){
-    if(e.keyCode === 37){
-      clearInterval(this.keyInfo.left.keyInterval);
-      this.keyInfo.left.isDown = false;
-    } else if(e.keyCode === 38){
-      clearInterval(this.keyInfo.up.keyInterval);
-      this.keyInfo.up.isDown = false;
-    } else if(e.keyCode === 39){
-      clearInterval(this.keyInfo.right.keyInterval);
-      this.keyInfo.right.isDown = false;
-    } else if(e.keyCode === 40){
-      clearInterval(this.keyInfo.down.keyInterval);
-      this.keyInfo.down.isDown = false;
+    const code = e.keyCode;
+    const key = this.keyInfo[code];
+    if(key){
+      clearInterval(key.keyInterval);
+      key.isDown = false;
     }
-    
   }
 }
