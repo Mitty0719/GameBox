@@ -4,8 +4,7 @@ import { PlayerBar } from './break-out-module/playerBar.js';
 import { BlockGroup } from './break-out-module/blockGroup.js';
 import { level1, level2, level3, level4, level5 } from './break-out-module/level.js';
 export class BreakOut{
-  constructor(ctx, stageWidth, stageHeight, showText){
-    this.ctx = ctx;
+  constructor(stageWidth, stageHeight, showText){
     this.levelNum = 1;
     this.levelMax = 5;
     this.isAdjust = false; // 레벨 조정 체크값
@@ -22,23 +21,23 @@ export class BreakOut{
     }, 1000);
   }
 
-  resize(stageWidth, stageHeight){
-    if(this.playerBar){
-      this.playerBar.resize(stageWidth, stageHeight);
-      this.blockGroup.resize(stageWidth, stageHeight);
-    }
-  }
+  // resize(stageWidth, stageHeight){
+  //   if(this.playerBar){
+  //     this.playerBar.resize(stageWidth, stageHeight);
+  //     this.blockGroup.resize(stageWidth, stageHeight);
+  //   }
+  // }
 
-  animate(stageWidth, stageHeight){
+  animate(ctx, stageWidth, stageHeight){
     if(this.ball.y > stageHeight && !this.isAdjust){
       this.showText(`GAME OVER`, `score : ${this.score}`);
       return;
     }
 
-    this.ctx.clearRect(0, 0, stageWidth, stageHeight);
-    this.ball.draw(this.ctx, stageWidth, stageHeight, this.playerBar, this.blockGroup);
-    this.playerBar.draw(this.ctx);
-    this.blockGroup.draw(this.ctx);
+    ctx.clearRect(0, 0, stageWidth, stageHeight);
+    this.ball.draw(ctx, stageWidth, stageHeight, this.playerBar, this.blockGroup);
+    this.playerBar.draw(ctx);
+    this.blockGroup.draw(ctx);
 
     if(this.isAdjust){
       let text = `Level ${this.levelNum} Clear!`;

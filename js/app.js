@@ -34,9 +34,9 @@ class App{
     document.querySelector('.screen').appendChild(this.canvas);
     
     if(this.gameIndex === 0){
-      this.game = new BreakOut(this.ctx, this.stageWidth, this.stageHeight, this.showText.bind(this));
+      this.game = new BreakOut(this.stageWidth, this.stageHeight, this.showText.bind(this));
     }else if(this.gameIndex === 1){
-      this.game = new DodgeSpace();
+      this.game = new DodgeSpace(this.stageWidth, this.stageHeight, this.showText.bind(this));
     }
 
     this.isPlaying = true;
@@ -56,7 +56,7 @@ class App{
 
   animate(){
     this.reqId = requestAnimationFrame(this.animate.bind(this));
-    this.game.animate(this.stageWidth, this.stageHeight);
+    this.game.animate(this.ctx, this.stageWidth, this.stageHeight);
   }
 
   resize(){
@@ -65,7 +65,7 @@ class App{
     if(this.isPlaying){
       this.canvas.width = this.stageWidth;
       this.canvas.height = this.stageHeight;
-      this.game.resize(this.stageWidth, this.stageHeight);
+      // this.game.resize(this.stageWidth, this.stageHeight);
     }
   }
 
