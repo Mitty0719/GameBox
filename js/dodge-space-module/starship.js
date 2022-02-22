@@ -77,4 +77,19 @@ export class Startship{
       key.isDown = false;
     }
   }
+
+  clashDot(dots){
+    const minX = this.x - (this.radius);
+    const maxX = this.x + (this.radius);
+    const minY = this.y - (this.radius);
+    const maxY = this.y + (this.radius);
+
+    for(let i = 0; i < dots.length; i++){
+      const dot = dots[i];
+      if((dot.x >= minX && dot.x <= maxX) && (dot.y >= minY && dot.y <= maxY)){
+        return true;
+      }
+    }
+    return false;
+  }
 }
