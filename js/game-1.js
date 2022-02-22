@@ -4,30 +4,33 @@ import { PlayerBar } from './module/playerBar.js';
 import { BlockGroup } from './module/blockGroup.js';
 import { level1, level2, level3, level4, level5 } from './module/level.js';
 export class Game1{
-  constructor(ctx, stageWidth, stageHeight){
+  constructor(ctx, stageWidth, stageHeight, showText){
     this.ctx = ctx;
     this.levelNum = 1;
     this.levelMax = 5;
     this.isAdjust = false; // 레벨 조정 체크값
     this.isStart = false; // 시작 텍스트 체크값
+    this.showText = showText;
 
     this.adjustLevel();
     this.createElem(stageWidth, stageHeight);
     // console.log(stageWidth, stageHeight);
 
-    setInterval(this.checkClear.bind(this), 1000);
+    setInterval(()=>{
+      this.checkClear(stageWidth, stageHeight);
+    }, 1000);
   }
 
   resize(stageWidth, stageHeight){
-    if(this.isStart){
+    if(this.playerBar){
+      this.playerBar.resize(stageWidth, stageHeight);
       this.blockGroup.resize(stageWidth, stageHeight);
     }
   }
 
   animate(stageWidth, stageHeight){
-    // console.log(this.ball);
     if(this.ball.y > stageHeight && !this.isAdjust){
-      this.showText('GAME OVER', stageWidth, stageHeight);
+      this.showText('GAME OVER');
       return;
     }
 
@@ -42,11 +45,12 @@ export class Game1{
       if(this.isStart){
         text = `Level ${this.levelNum+1} Start!`;
       }
-      this.showText(text, stageWidth, stageHeight);
+      this.showText(text);
     }
   }
 
   createElem(stageWidth, stageHeight){
+    console.log(this.levelNum);
     let overLevelBallSpeed = this.levelNum > this.levelMax ? 0.2 * this.levelNum : 1;
     this.ball = new Ball(stageWidth, stageHeight, 6 * this.level.ballSpeedRatio * overLevelBallSpeed);
     this.playerBar = new PlayerBar(stageWidth, stageHeight);
@@ -63,17 +67,7 @@ export class Game1{
     }
   }
 
-  showText(text, stageWidth, stageHeight){
-    // console.log(text);
-    this.ctx.fillStyle = '#639a3d';
-    this.ctx.fillRect(0, 0, stageWidth, stageHeight);
-    this.ctx.font = '24px "Press Start 2P"';
-    this.ctx.fillStyle = '#000000';
-    this.ctx.textAlign = 'center';
-    this.ctx.fillText(text, stageWidth/2, stageHeight/2);
-  }
-
-  checkClear(){
+  checkClear(stageWidth, stageHeight){
     let blockCnt = 0;
     for(let i = 0; i < this.blockGroup.rows.length; i++){
       for(let j = 0; j < this.blockGroup.rows[i].blocks.length; j++){
@@ -92,7 +86,7 @@ export class Game1{
       setTimeout(()=>{
           this.levelNum++;
           this.adjustLevel();
-          this.createElem();
+          this.createElem(stageWidth, stageHeight);
           this.isAdjust = false;
           this.isStart = false;
       }, 4000)

@@ -11,13 +11,22 @@ class App{
     this.resize();
   }
 
+  showText(text){
+    this.ctx.fillStyle = '#639a3d';
+    this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
+    this.ctx.font = '18px "Press Start 2P"';
+    this.ctx.fillStyle = '#000000';
+    this.ctx.textAlign = 'center';
+    this.ctx.fillText(text, this.stageWidth/2, this.stageHeight/2);
+  }
+
   startGame(){
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d');
     document.querySelector('.screen').appendChild(this.canvas);
 
     if(this.gameIndex === 0){
-      this.game = new Game1(this.ctx, this.stageWidth, this.stageHeight);
+      this.game = new Game1(this.ctx, this.stageWidth, this.stageHeight, this.showText.bind(this));
     }
 
     this.isPlaying = true;

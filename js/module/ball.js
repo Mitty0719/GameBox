@@ -3,12 +3,10 @@ export class Ball{
         // x, y 방향 속도
         this.vx = speed;
         this.vy = speed;
-        this.radius = 16;
-
-        const diameter = this.radius * 2;
+        this.size = 16;
 
         this.x = stageWidth / 2;
-        this.y = stageHeight - diameter - 20; // 20 공백
+        this.y = stageHeight - 60; // 공 백
     }
 
     draw(ctx, stageWidth, stageHeight, playerBar, blockGroup){
@@ -27,15 +25,15 @@ export class Ball{
         ctx.fillStyle = '#000000';
         ctx.beginPath();
         // ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        ctx.rect(this.x, this.y, this.radius, this.radius);
+        ctx.rect(this.x, this.y, this.size, this.size);
         ctx.fill();
     }
 
     bounceWindow(stageWidth, stageHeight){
-        const minX = this.radius;
-        const maxX = stageWidth - this.radius;
-        const minY = this.radius;
-        const maxY = stageHeight - this.radius;
+        const minX = 1;
+        const maxX = stageWidth - this.size - 1;
+        const minY = 1;
+        const maxY = stageHeight - this.size - 1;
 
         if(this.x <= minX || this.x >= maxX){
             this.vx *= -1;
@@ -49,9 +47,9 @@ export class Ball{
       if(elem.isBroken){
         return;
       }
-      const minX = elem.x - this.radius
+      const minX = elem.x - this.size;
       const maxX = elem.maxX;
-      const minY = elem.y - this.radius;
+      const minY = elem.y - this.size;
       const maxY = elem.maxY;
 
       if(this.x > minX && this.x < maxX && this.y > minY && this.y < maxY){
