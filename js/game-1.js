@@ -11,6 +11,7 @@ export class Game1{
     this.isAdjust = false; // 레벨 조정 체크값
     this.isStart = false; // 시작 텍스트 체크값
     this.showText = showText;
+    this.score = 0;
 
     this.adjustLevel();
     this.createElem(stageWidth, stageHeight);
@@ -30,7 +31,7 @@ export class Game1{
 
   animate(stageWidth, stageHeight){
     if(this.ball.y > stageHeight && !this.isAdjust){
-      this.showText('GAME OVER');
+      this.showText(`GAME OVER`, `score : ${this.score}`);
       return;
     }
 
@@ -52,7 +53,7 @@ export class Game1{
   createElem(stageWidth, stageHeight){
     console.log(this.levelNum);
     let overLevelBallSpeed = this.levelNum > this.levelMax ? 0.2 * this.levelNum : 1;
-    this.ball = new Ball(stageWidth, stageHeight, 6 * this.level.ballSpeedRatio * overLevelBallSpeed);
+    this.ball = new Ball(stageWidth, stageHeight, 6 * this.level.ballSpeedRatio * overLevelBallSpeed, this.scoreUp.bind(this));
     this.playerBar = new PlayerBar(stageWidth, stageHeight);
     this.blockGroup = new BlockGroup(stageWidth, stageHeight, this.level);
   }
@@ -91,6 +92,10 @@ export class Game1{
           this.isStart = false;
       }, 4000)
     }
+  }
+
+  scoreUp(){
+    this.score += 100;
   }
 
 }

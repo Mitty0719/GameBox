@@ -1,5 +1,5 @@
 export class Ball{
-    constructor(stageWidth, stageHeight, speed){
+    constructor(stageWidth, stageHeight, speed, scoreUp){
         // x, y 방향 속도
         this.vx = speed;
         this.vy = speed;
@@ -7,6 +7,8 @@ export class Ball{
 
         this.x = stageWidth / 2;
         this.y = stageHeight - 60; // 공 백
+
+        this.scoreUp = scoreUp; // 점수 증가 함수
     }
 
     draw(ctx, stageWidth, stageHeight, playerBar, blockGroup){
@@ -18,7 +20,7 @@ export class Ball{
         
         blockGroup.rows.forEach( row => {
             row.blocks.forEach( block => {
-                this.bounceElem(block, blockGroup);
+                this.bounceElem(block);
             });
         });
 
@@ -43,7 +45,7 @@ export class Ball{
         }
     }
 
-    bounceElem(elem, blockGroup){
+    bounceElem(elem){
       if(elem.isBroken){
         return;
       }
@@ -70,6 +72,7 @@ export class Ball{
           // block이면 삭제
           if(elem.__proto__.constructor.name === 'Block'){
               elem.remove();
+              this.scoreUp();
           }
       }
     }

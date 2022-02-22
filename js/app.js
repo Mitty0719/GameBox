@@ -11,28 +11,38 @@ class App{
     this.resize();
   }
 
-  showText(text){
+  showText(text, subText){
     this.ctx.fillStyle = '#639a3d';
     this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
     this.ctx.font = '18px "Press Start 2P"';
     this.ctx.fillStyle = '#000000';
     this.ctx.textAlign = 'center';
-    this.ctx.fillText(text, this.stageWidth/2, this.stageHeight/2);
+    this.ctx.fillText(text, this.stageWidth / 2, this.stageHeight / 2);
+
+    if(subText){
+      this.ctx.save();
+      this.ctx.font = '12px "Press Start 2P"';
+      this.ctx.fillText(subText, this.stageWidth / 2, (this.stageHeight / 2) + 50);
+      this.ctx.restore();
+    }
   }
 
   startGame(){
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d');
     document.querySelector('.screen').appendChild(this.canvas);
-
+    
     if(this.gameIndex === 0){
       this.game = new Game1(this.ctx, this.stageWidth, this.stageHeight, this.showText.bind(this));
     }
 
     this.isPlaying = true;
     this.resize();
-
-    this.reqId = requestAnimationFrame(this.animate.bind(this));
+    this.showText('GAME START!');
+    
+    setTimeout(()=>{
+      this.reqId = requestAnimationFrame(this.animate.bind(this));
+    }, 2000)
   }
   endGame(){
     document.querySelector('.screen').removeChild(this.canvas);
