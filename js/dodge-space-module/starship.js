@@ -32,7 +32,9 @@ export class Startship{
       },
     }
 
-    window.addEventListener('keydown', this.moveStart.bind(this));
+    window.addEventListener('keydown', (e) => {
+      this.moveStart(e, stageWidth, stageHeight);
+    });
     window.addEventListener('keyup', this.moveEnd.bind(this));
   }
 
@@ -51,17 +53,29 @@ export class Startship{
     ctx.fill();
     ctx.restore();
   }
-  moveStart(e){
+  moveStart(e, stageWidth, stageHeight){
     const code = e.keyCode;
     const key = this.keyInfo[code];
     if(key){
       if(!key.isDown){
         if(code === 37 || code === 39){
           key.keyInterval = setInterval(()=>{
+            if(this.x < 0){
+              this.x = 0; return;
+            }
+            if(this.x > stageWidth){
+              this.x = stageWidth; return;
+            }
             this.x += key.direction;
           }, 10);
         } else if(code === 38 || code === 40){
           key.keyInterval = setInterval(()=>{
+            if(this.y < 0){
+              this.y = 0; return;
+            }
+            if(this.y > stageHeight){
+              this.y = stageHeight; return;
+            }
             this.y += key.direction;
           }, 10);
         }
