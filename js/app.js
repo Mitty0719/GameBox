@@ -1,4 +1,5 @@
-import { Game1 } from "./game-1.js";
+import { BreakOut } from "./1.break-out.js";
+import { DodgeSpace } from './2.dodge-space.js';
 
 class App{
   constructor(){
@@ -33,13 +34,15 @@ class App{
     document.querySelector('.screen').appendChild(this.canvas);
     
     if(this.gameIndex === 0){
-      this.game = new Game1(this.ctx, this.stageWidth, this.stageHeight, this.showText.bind(this));
+      this.game = new BreakOut(this.ctx, this.stageWidth, this.stageHeight, this.showText.bind(this));
+    }else if(this.gameIndex === 1){
+      this.game = new DodgeSpace();
     }
 
     this.isPlaying = true;
     this.resize();
     this.showText('GAME START!');
-    
+
     setTimeout(()=>{
       this.reqId = requestAnimationFrame(this.animate.bind(this));
     }, 2000)

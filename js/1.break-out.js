@@ -1,9 +1,9 @@
 // Game 1 - Broke Block
-import { Ball } from './module/ball.js'
-import { PlayerBar } from './module/playerBar.js';
-import { BlockGroup } from './module/blockGroup.js';
-import { level1, level2, level3, level4, level5 } from './module/level.js';
-export class Game1{
+import { Ball } from './break-out-module/ball.js'
+import { PlayerBar } from './break-out-module/playerBar.js';
+import { BlockGroup } from './break-out-module/blockGroup.js';
+import { level1, level2, level3, level4, level5 } from './break-out-module/level.js';
+export class BreakOut{
   constructor(ctx, stageWidth, stageHeight, showText){
     this.ctx = ctx;
     this.levelNum = 1;
