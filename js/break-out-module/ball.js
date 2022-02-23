@@ -74,6 +74,19 @@ export class Ball{
               elem.remove();
               this.scoreUp();
           }
+          // playerBar
+          if(elem.__proto__.constructor.name === 'PlayerBar'){
+            if(elem.keyInfo[37].isDown){ // 좌측
+              if(this.vx > 0){
+                this.vx *= -1;
+              }
+            }
+            if(elem.keyInfo[39].isDown){ // 우측
+              if(this.vx < 0){
+                this.vx *= -1;
+              }
+            }
+          }
       }
     }
 }
