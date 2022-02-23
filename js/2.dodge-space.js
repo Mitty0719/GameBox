@@ -7,11 +7,13 @@ export class DodgeSpace{
 
     this.starship = new Startship(stageWidth, stageHeight);
     this.dots = [];
-    this.dot = new Dot(stageWidth, stageHeight, 3);
-    this.dots[0] = this.dot;
+    this.makeDots(stageWidth, stageHeight);
 
     this.isFinish = false;
     this.showText = showText;
+
+    this.gameSpeed = 3;
+    setInterval(this.upSpeed.bind(this), 5000);
   }
   animate(ctx, stageWidth, stageHeight){
     if(this.isFinish){
@@ -27,7 +29,27 @@ export class DodgeSpace{
 
     ctx.clearRect(0, 0, stageWidth, stageHeight);
     this.starship.draw(ctx);
-    this.dot.draw(ctx);
+
+    for(let i = 0; i < this.dots.length; i++){
+      this.dots[i].draw(ctx);
+      if(this.dots[i].checkOut()){
+        this.dots.splice(i, 1);
+      }
+    }
+  }
+
+  makeDots(stageWidth, stageHeight){
+    this.dots = [];
+    const makeDotId = setInterval(()=>{
+      this.dots[this.dots.length] = new Dot(stageWidth, stageHeight, this.gameSpeed);
+      if(this.isFinish){
+        clearInterval(makeDotId);
+      }
+    }, 100);
+  }
+
+  upSpeed(){
+    this.speed++;
   }
 
 }
