@@ -5,6 +5,7 @@ export class Startship{
     this.radius = 10;
     this.sides = 3;
     this.angle = PI2 / this.sides;
+    this.rotate = 0;
 
     this.x = (stageWidth / 2) + (this.radius / 2);
     this.y = (stageHeight / 2) + (this.radius / 2);
@@ -42,9 +43,12 @@ export class Startship{
     ctx.save();
     ctx.fillStyle = '#000000';
     ctx.beginPath();
+    ctx.translate(this.x, this.y)
+    this.rotate+= 0.1;
+    ctx.rotate(this.rotate);
     for(let i = 0; i < this.sides; i++){
-      const x = this.radius * Math.cos(this.angle * i) + this.x;
-      const y = this.radius * Math.sin(this.angle * i) + this.y;
+      const x = this.radius * Math.cos(this.angle * i);
+      const y = this.radius * Math.sin(this.angle * i);
       if(i === 0){
         ctx.moveTo(x, y);
       }
