@@ -1,5 +1,6 @@
 import { BreakOut } from "./1.break-out.js";
 import { DodgeSpace } from './2.dodge-space.js';
+import { DefendCastle } from "./3.defend-castle.js";
 
 class App{
   constructor(){
@@ -37,6 +38,8 @@ class App{
       this.game = new BreakOut(this.stageWidth, this.stageHeight, this.showText.bind(this));
     }else if(this.gameIndex === 1){
       this.game = new DodgeSpace(this.stageWidth, this.stageHeight, this.showText.bind(this));
+    }else if(this.gameIndex === 2){
+      this.game = new DefendCastle();
     }
 
     this.isPlaying = true;
