@@ -11,7 +11,7 @@ export class Canon{
 
     this.catchBall = null;
     this.canonballs = new Set();
-    this.maxball = 100; // 2
+    this.maxball = 10; // 최대 canonball 갯수
     this.betweenBall = 5; // ball 사이의 거리
     this.currentTime = 0;
     this.halfStageWidth = stageWidth / 2;
@@ -59,5 +59,8 @@ export class Canon{
   shotBall(){
     this.catchBall = null;
     this.keyInfo[32].isDown = false;
+  }
+  removeBall(canonball){
+    this.canonballs.delete(canonball);
   }
 }

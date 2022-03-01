@@ -5,17 +5,27 @@ export class DefendCastle{
   constructor(stageWidth, stageHeight, showText){
 
     this.canon = new Canon(stageWidth, stageHeight);
-    this.enemys = [];
+    this.enemys = new Set();
+    this.score = 0;
 
-    setInterval(this.callEnemy.bind(this, stageWidth, stageHeight), 1000);
+    this.enemyIntId = setInterval(this.callEnemy.bind(this, stageWidth, stageHeight), 3000);
   }
 
   animate(ctx, stageWidth, stageHeight){
     ctx.clearRect(0, 0, stageWidth, stageHeight);
     this.canon.draw(ctx);
 
-    for(let i = 0; i < this.enemys.length; i++){
-      this.enemys[i].draw(ctx);
+    for(let enemy of this.enemys.values()){
+      enemy.draw(ctx);
+      for(let canonball of this.canon.canonballs.values()){
+        if(enemy.crashBall(canonball)){
+          this.canon.removeBall(canonball);
+        }
+        if(canonball.y + canonball.size < 0){
+          this.canon.removeBall(canonball);
+        }
+      }
+      this.removeEnemy(enemy);
     }
   }
 
@@ -24,7 +34,17 @@ export class DefendCastle{
   }
 
   callEnemy(stageWidth, stageHeight){
-    console.log(this.enemys);
-    this.enemys[this.enemys.length] = new Enemy(stageWidth, stageHeight);
+    const callCnt = Math.floor(this.score / 2000) + 1;
+    console.log(callCnt);
+    for(let i = 0; i < callCnt; i++){
+      this.enemys.add(new Enemy(stageWidth, stageHeight));
+    }
+  }
+
+  removeEnemy(enemy){
+    if(enemy.health <= 0){
+      this.enemys.delete(enemy);
+      this.score += enemy.score;
+    }
   }
 }
