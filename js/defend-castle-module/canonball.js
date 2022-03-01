@@ -4,16 +4,22 @@ export class Canonball{
     this.y = y;
     this.vy = 1;
     this.size = 0;
-    this.sizeMax = 5;
+    this.sizeMax = 10;
     this.sizev = 0.1;
+    this.damage = 0;
   }
 
-  draw(ctx){
+  drawMake(ctx, x){
     if(this.size < this.sizeMax){
       this.size += this.sizev;
-    }else{
-      this.y -= this.vy;
     }
+    this.x = x;
+    this.damage = Math.floor(this.size);
+    console.log(this.damage);
+    ctx.fillRect(this.x - (this.size / 2), this.y - (this.size / 2), this.size, this.size);
+  }
+  drawShot(ctx){
+    this.y -= this.vy;
     ctx.fillRect(this.x - (this.size / 2), this.y - (this.size / 2), this.size, this.size);
   }
 }
