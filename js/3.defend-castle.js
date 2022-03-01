@@ -3,6 +3,8 @@ import { Enemy } from "./defend-castle-module/enemy.js";
 
 export class DefendCastle{
   constructor(stageWidth, stageHeight, showText){
+    this.showText = showText;
+    this.isFinish = false;
 
     this.canon = new Canon(stageWidth, stageHeight);
     this.enemys = new Set();
@@ -12,6 +14,9 @@ export class DefendCastle{
   }
 
   animate(ctx, stageWidth, stageHeight){
+    if(this.isFinish){
+      return;
+    }
     ctx.clearRect(0, 0, stageWidth, stageHeight);
     this.canon.draw(ctx);
 
@@ -24,6 +29,11 @@ export class DefendCastle{
         if(canonball.y + canonball.size < 0){
           this.canon.removeBall(canonball);
         }
+      }
+      if(enemy.y > stageHeight){
+        this.showText(`GAMEOVER`, `score : ${this.score}`);
+        this.isFinish = true;
+        return;
       }
       this.removeEnemy(enemy);
     }
