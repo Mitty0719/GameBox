@@ -39,7 +39,7 @@ class App{
     }else if(this.gameIndex === 1){
       this.game = new DodgeSpace(this.stageWidth, this.stageHeight, this.showText.bind(this));
     }else if(this.gameIndex === 2){
-      this.game = new DefendCastle();
+      this.game = new DefendCastle(this.stageWidth, this.stageHeight, this.showText.bind(this));
     }
 
     this.isPlaying = true;
@@ -73,6 +73,7 @@ class App{
   }
 
   keydown(e){
+    console.log(e.keyCode);
     if(e.keyCode === 38){ // 위쪽 방향키
       if(this.gameIndex > 0){
         this.gameItems[this.gameIndex--].classList.remove('selected');
@@ -83,11 +84,12 @@ class App{
         this.gameItems[this.gameIndex++].classList.remove('selected');
         this.gameItems[this.gameIndex].classList.add('selected');
       }
-    } else if (e.keyCode === 32){ // 스페이스바
+    } else if (e.keyCode === 13){ // 엔터
       if(this.isPlaying){
         this.endGame();
+      }else{
+        this.startGame();
       }
-      this.startGame();
     }
   }
 }
