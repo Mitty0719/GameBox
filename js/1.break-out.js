@@ -50,7 +50,7 @@ export class BreakOut{
   }
 
   createElem(stageWidth, stageHeight){
-    console.log(this.levelNum);
+    // console.log(this.levelNum);
     let overLevelBallSpeed = this.levelNum > this.levelMax ? 0.2 * this.levelNum : 1;
     this.ball = new Ball(stageWidth, stageHeight, 6 * this.level.ballSpeedRatio * overLevelBallSpeed, this.scoreUp.bind(this));
     this.playerBar = new PlayerBar(stageWidth, stageHeight);

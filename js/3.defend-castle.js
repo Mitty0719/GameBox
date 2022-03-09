@@ -45,7 +45,7 @@ export class DefendCastle{
 
   callEnemy(stageWidth, stageHeight){
     const callCnt = Math.floor(this.score / 2000) + 1;
-    console.log(callCnt);
+    // console.log(callCnt);
     for(let i = 0; i < callCnt; i++){
       this.enemys.add(new Enemy(stageWidth, stageHeight));
     }

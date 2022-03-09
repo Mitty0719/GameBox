@@ -55,11 +55,13 @@ class App{
     this.ctx = null;
     this.canvas = null;
     cancelAnimationFrame(this.reqId);
+    this.isPlaying = false;
   }
 
   animate(){
     this.reqId = requestAnimationFrame(this.animate.bind(this));
     this.game.animate(this.ctx, this.stageWidth, this.stageHeight);
+    console.log('callAnimate');
   }
 
   resize(){
@@ -73,7 +75,7 @@ class App{
   }
 
   keydown(e){
-    console.log(e.keyCode);
+    // console.log(e.keyCode);
     if(e.keyCode === 38){ // 위쪽 방향키
       if(this.gameIndex > 0){
         this.gameItems[this.gameIndex--].classList.remove('selected');
