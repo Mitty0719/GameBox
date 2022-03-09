@@ -33,6 +33,14 @@ canvas {
   background: #639a3d;
   border: 5px solid black;
 }
+.guide-con {
+  position: absolute;
+  left: 25px;
+  bottom: 15px;
+}
+.guide-text {
+  line-height: 20px;
+}
 
 .game-list {
   flex-grow: 1;
